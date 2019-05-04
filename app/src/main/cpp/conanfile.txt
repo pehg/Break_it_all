@@ -1,0 +1,7 @@
+[requires]
+glfw/3.3@bincrafters/stable
+gtest/1.8.1@bincrafters/stable
+glm/0.9.9.4@g-truc/stable
+
+[generators]
+cmake
