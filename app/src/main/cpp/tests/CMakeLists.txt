@@ -4,7 +4,7 @@ add_executable(executeTests
 
 target_link_libraries(executeTests
         math
-        gtest)
+        ${CONAN_LIBS})
 
 add_test(NAME executeTests
         COMMAND executeTests)
