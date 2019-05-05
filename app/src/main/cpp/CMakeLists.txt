@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project(Break_it_all VERSION 0.0.1)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/conan_build/conanbuildinfo.cmake)
+#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 set(CMAKE_VERBOSE_MAKEFILE on)
