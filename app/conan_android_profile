@@ -1,0 +1,8 @@
+[settings]
+os=Android
+compiler=clang
+compiler.version=5.0
+compiler.libcxx=libstdc++
+
+[options]
+android-toolchain:ndk_path=${HOME}/Android/Sdk/ndk-bundle

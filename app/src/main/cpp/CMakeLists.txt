@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project(Break_it_all VERSION 0.0.1)
 
-#include(${CMAKE_CURRENT_SOURCE_DIR}/conan_build/conanbuildinfo.cmake)
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+message(status "Cmake message")
+include(${CMAKE_CURRENT_SOURCE_DIR}/../../../conan/arm64-v8a/conanbuildinfo.cmake)
+#include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
