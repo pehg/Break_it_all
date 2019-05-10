@@ -24,7 +24,7 @@ else(ANDROID)
 
         target_link_libraries(linuxLauncher
                 common
-                ${CONAN_LIBS})
+                CONAN_PKG::glfw)
 
         add_custom_target(run
                 COMMAND linuxLauncher

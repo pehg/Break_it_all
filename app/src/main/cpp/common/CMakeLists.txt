@@ -15,6 +15,6 @@ target_link_libraries(common
         hal
         math
         -lGLESv2
-        ${CONAN_LIBS})
+        CONAN_PKG::glm)
 
 target_include_directories(common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)

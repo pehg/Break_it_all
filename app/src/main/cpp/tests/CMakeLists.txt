@@ -4,7 +4,7 @@ add_executable(executeTests
 
 target_link_libraries(executeTests
         math
-        ${CONAN_LIBS})
+        CONAN_PKG::gtest)
 
 add_test(NAME executeTests
         COMMAND executeTests)
