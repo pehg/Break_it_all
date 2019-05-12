@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project(Break_it_all VERSION 0.0.1)
 
-message(status "Cmake message")
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../../conan/arm64-v8a/conanbuildinfo.cmake)
+message(status ${CONAN_DIR})
+include(${Break_it_all_BINARY_DIR}/../../../../conan/${ANDROID_ABI}/conanbuildinfo.cmake)
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
