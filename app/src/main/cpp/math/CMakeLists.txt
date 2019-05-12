@@ -1,4 +1,4 @@
-add_library(math STATIC
+add_library(math SHARED
         src/math/math_utils.cpp
         src/math/Vector.cpp)
 

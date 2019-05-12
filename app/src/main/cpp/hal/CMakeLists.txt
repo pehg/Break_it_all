@@ -1,5 +1,5 @@
 if(ANDROID)
-        add_library(hal
+        add_library(hal SHARED
                 src/android/logger.hpp
                 src/android/filesManager.cpp)
 
@@ -7,7 +7,7 @@ if(ANDROID)
                 -landroid
                 -llog)
 
-        add_library(gameLibJNIWrapper
+        add_library(gameLibJNIWrapper SHARED
                 src/android/main.cpp)
 
         target_link_libraries(gameLibJNIWrapper

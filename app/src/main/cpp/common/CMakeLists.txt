@@ -1,4 +1,4 @@
-add_library(common STATIC
+add_library(common SHARED
         src/common/SandBox.cpp
         src/common/Test1.cpp
         src/common/Test2.cpp

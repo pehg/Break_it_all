@@ -1,3 +1,4 @@
+import com.android.build.OutputFile
 apply plugin: 'com.android.application'
 
 android {
@@ -13,24 +14,25 @@ android {
                 cppFlags ""
                 arguments "-DANDROID_STL=c++_shared"
             }
-            ndk {
-                abiFilters "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
-                stl 'c++_shared'
-            }
         }
     }
-    /*splits {
+    splits {
         abi {
             enable true
             reset()
             include "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
-            //include "arm64-v8a"
             universalApk false
         }
-    }*/
+    }
     buildTypes {
-        //release {}
-        debug {}
+        /*release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }*/
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
     }
     externalNativeBuild {
         cmake {
@@ -61,22 +63,32 @@ task appStart(type: Exec, dependsOn: 'installDebug') {
 task conanInstall {
     def CONAN_ARCHS_MAP = ['arm64-v8a':'armv8', 'armeabi-v7a':'armv7', 'x86':'x86', 'x86_64':'x86_64']
     def api_level = android.defaultConfig.minSdkVersion.mApiLevel
-    android.defaultConfig.ndk.abiFilters.each {
-        def arch = CONAN_ARCHS_MAP.get(it, it)
-        def build_dir = new File("app/conan/$it")
-        build_dir.mkdirs()
-        def cmd = "conan install ../../src/main/cpp/conanfile.txt " +
-                "--profile ../../android_24_arm_clang " +
-                "-s arch=${arch} -s os=Android -s os.api_level=${api_level} -s build_type=Release" +
-                " --build missing "
-        print(">> ${cmd} \n")
-        def sout = new StringBuilder(), serr = new StringBuilder()
-        def proc = cmd.execute(null, build_dir)
-        proc.consumeProcessOutput(sout, serr)
-        proc.waitFor()
-        println "$sout $serr"
-        if(proc.exitValue() != 0) {
-            throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmd}")
+    android {
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                println output
+                println output.apkData.filters
+                println output.apkData.filters[0]
+                println output.getFilter(OutputFile.ABI)
+
+                def arch = CONAN_ARCHS_MAP.get(output.getFilter(OutputFile.ABI), it)
+                println arch
+                def build_dir = new File("app/conan/${output.getFilter(OutputFile.ABI)}")
+                build_dir.mkdirs()
+                def cmd = "conan install ../../src/main/cpp/conanfile.txt " +
+                        "--profile ../../android_24_arm_clang " +
+                        "-s arch=${arch} -s os=Android -s os.api_level=${api_level} -s build_type=Debug" +
+                        " --build missing "
+                print("\n\n>> ${cmd} \n\n")
+                def sout = new StringBuilder(), serr = new StringBuilder()
+                def proc = cmd.execute(null, build_dir)
+                proc.consumeProcessOutput(sout, serr)
+                proc.waitFor()
+                println "$sout $serr"
+                if(proc.exitValue() != 0) {
+                    throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmd}")
+                }
+            }
         }
     }
 }
