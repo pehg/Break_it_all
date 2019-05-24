@@ -6,6 +6,7 @@ You can build a Android version using Android Studio or a desktop version buildi
 
 ## Build in Linux
 Clone the project in your home directory
+
 ```console
 $ git clone https://github.com/simonppg/Break_it_all.git
 $ cd Break_it_all/app/src/main/cpp/
@@ -53,3 +54,6 @@ $ sudo cp *.a /usr/lib
 ```console
 $ make check
 ```
+
+## Build for Windows
+TODO
